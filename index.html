@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GhostChat 👻</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center">
+
+<div class="w-full max-w-md p-4 space-y-3">
+  <h1 class="text-3xl font-bold text-center">👻 GhostChat</h1>
+
+  <input id="name" placeholder="Your name" class="w-full p-2 rounded text-black" />
+  <input id="room" placeholder="Group name" class="w-full p-2 rounded text-black" />
+  <input id="password" placeholder="Room password" type="password" class="w-full p-2 rounded text-black" />
+
+  <button onclick="joinRoom()" class="w-full bg-green-500 p-2 rounded">Join</button>
+
+  <div id="chat" class="hidden space-y-2 mt-3">
+    <div id="messages" class="h-60 overflow-y-auto bg-black p-2 rounded"></div>
+
+    <input id="msg" placeholder="Message..." class="w-full p-2 rounded text-black" />
+    <button onclick="sendMsg()" class="w-full bg-blue-500 p-2 rounded">Send</button>
+  </div>
+</div>
+
+<audio id="ping" src="sound.mp3"></audio>
+
+<script src="app.js"></script>
+</body>
+</html>
+
