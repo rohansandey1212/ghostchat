@@ -1,7 +1,7 @@
 firebase.initializeApp({
-  apiKey: "PASTE_YOUR_API_KEY",
-  authDomain: "PASTE.firebaseapp.com",
-  projectId: "PASTE_PROJECT_ID"
+  apiKey: "AIzaSyA6xXc2Ise56jkcaI8YEBQz1H_dfvXQ_Vs",
+  authDomain: "ghost-chat-5d4d9.firebaseapp.com",
+  projectId: "ghost-chat-5d4d9"
 });
 
 const db = firebase.firestore();
