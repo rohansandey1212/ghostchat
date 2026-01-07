@@ -8,49 +8,46 @@ const db = firebase.firestore();
 let roomRef, userName;
 
 function joinRoom() {
-  userName = name.value.trim();
-  const roomName = room.value.trim();
-  const pass = password.value.trim();
+  const name = document.getElementById("name").value.trim();
+  const room = document.getElementById("room").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const msg = document.getElementById("msg");
 
-  if (!userName || !roomName || !pass) {
+  if (!name || !room || !password) {
     alert("Fill all fields");
     return;
   }
 
-  roomRef = db.collection("rooms").doc(roomName);
+  currentUser = name;
+  currentRoom = room;
 
-  roomRef.get().then(doc => {
-    if (doc.exists && doc.data().password !== pass) {
-      alert("Wrong password");
-    } else {
-      roomRef.set({ password: pass }, { merge: true });
-      document.getElementById("chat").classList.remove("hidden");
-      listen();
-    }
-  });
+  document.getElementById("chat").classList.remove("hidden");
 }
+
 
 function sendMsg() {
   const text = msg.value.trim();
-  if (!text) return;
+  if (!text || !roomRef) return;
 
   roomRef.collection("messages").add({
     name: userName,
-    text,
-    time: Date.now()
+    text: text,
+    time: firebase.firestore.FieldValue.serverTimestamp()
   });
 
   msg.value = "";
 }
 
-function listen() {
+function listenMsg() {
   roomRef.collection("messages")
     .orderBy("time")
-    .onSnapshot(snap => {
-      messages.innerHTML = "";
-      snap.forEach(d => {
-        messages.innerHTML += `<p><b>${d.data().name}:</b> ${d.data().text}</p>`;
-        ping.play();
+    .onSnapshot(snapshot => {
+      const box = document.getElementById("messages");
+      box.innerHTML = "";
+
+      snapshot.forEach(doc => {
+        const m = doc.data();
+        box.innerHTML += `<p><b>${m.name}:</b> ${m.text}</p>`;
       });
     });
 }
